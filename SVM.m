@@ -32,14 +32,17 @@ function SVM()
     
     svm.sv = find(alpha>0.0);
     svm.ns = size(svm.sv,1);
+
     % Find w 
     svm.w = invSt*(X*(alpha.*l));
     X_t = X';
+
     % Find b
     svm.b = 1/svm.ns * sum(l(svm.sv) - X_t(svm.sv,:)*svm.w);
     
     % Find estimated label  
     labelEst = sign(svm.w'*X_test + svm.b);
+
     % Compare estimated label with l_test and get accuracy
     accuracy = (sum(labelEst(:)'== l_test(:)')/size(l_test,1))*100;
     fprintf('Accuracy on the test set is %3.2f\n', accuracy);
